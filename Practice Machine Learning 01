@@ -1,21 +1,44 @@
+
+#クラス分類プログラム
+
+#ライブラリをインポート
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 from IPython.display import display
 
+#irisデータセットをload_iris関数で読み込む
 from sklearn.datasets import load_iris
 iris_dataset = load_iris()
 
+#ここから機械学習モデルの構築をする
+
+#train_test_split関数でデータをシャッフルする
+#同じ結果が得られるようにrandom_stateパラメータを固定
+#データを2つに分割する。X_trainに75%,X_testに25%
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(
     iris_dataset['data'], iris_dataset['target'], random_state=0)
 
+#k-最近傍法によるクラス分類
+#近傍点の数は1
 from sklearn.neighbors import KNeighborsClassifier
 knn = KNeighborsClassifier(n_neighbors=1)
 
+#モデルを構築
 knn.fit(X_train, y_train)
 
-y_pred = knn.predict(X_test)
-print("Test set predictions:\n", y_pred)
 
+#ここからモデルの評価を行う
+#X_testのデータを用いて精度を測定する
+y_pred = knn.predict(X_test)
+#X_testデータからクラス分類結果を出力
+print("Test set predictions:\n", y_pred)
+#クラス分類結果の精度を出力
 print("Test set score: {:.2f}".format(np.mean(y_pred == y_test)))
+
+#出力結果
+
+#Test set predictions:
+#[2 1 0 2 0 2 0 1 1 1 2 1 1 1 1 0 1 1 0 0 2 1 0 0 2 0 0 1 1 0 2 1 0 2 2 1 0 2]
+#Test set score: 0.97
