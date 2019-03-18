@@ -30,6 +30,7 @@ knn.fit(X_train, y_train)
 
 
 #ここからモデルの評価を行う
+
 #X_testのデータを用いて精度を測定する
 y_pred = knn.predict(X_test)
 #X_testデータからクラス分類結果を出力
